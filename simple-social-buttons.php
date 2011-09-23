@@ -5,7 +5,7 @@
     Description: Insert social buttons into posts and archives: Facebook "Like it", Google Plus One "+1" and Twitter share. 
     Author: Paweł Rabinek 
     Version: 1.0 
-    Author URI: http://blog.rabinek.pl/simple-social-buttons/
+    Author URI: http://blog.rabinek.pl/
 */
 
 /*  Copyright 2011, Paweł Rabinek (xradar)  (email : pawel@rabinek.pl)
@@ -24,12 +24,20 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-function ssb_include_social_js() { ?>
+function ssb_include_social_js() { 
+   $lang = get_bloginfo("language");
+   $lang_g = strtolower(substr($lang, 0, 2));
+   $lang_fb = str_replace("-", "_", $lang);
+?>
 
 <!-- Simple Social Buttons plugin -->
-<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+<script type="text/javascript" src="https://apis.google.com/js/plusone.js">
+//<![CDATA[
+   {lang: '<?php echo $lang_g; ?>'}
+//]]>
+</script>
 <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-<script type="text/javascript" src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
+<script type="text/javascript" src="http://connect.facebook.net/<?php echo $lang_fb; ?>/all.js#xfbml=1"></script>
 <!-- End of Simple Social Buttons -->
 
 <?php }

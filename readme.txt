@@ -29,11 +29,12 @@ Let your visitors share your content with friends and let them promote your blog
 Simple Social Buttons is currently in the following languages:
 
 - English
+- French, thanks to [RhooManu](https://twitter.com/RhooManu "RhooManu on Twitter") 
 - Polish (język polski)
 
 Feel free if you want to create a translation of this plugin. Contact me via e-mail or Twitter, and I'll add your's translation to Simple Social Buttons.
 
-
+For more information about Wordpress and SEO, visit my [SEO Blog](http://blog.rabinek.pl "Paweł Rabinek - Blog SEO") (in polish).
 
 == Installation ==
 
@@ -75,3 +76,6 @@ Follow me at Twitter @rabinek or send me a mention. I'll reply as soon as I get 
 = 1.0 =
 * First stable release.
 
+= 1.1 = 
+* Added french translation
+* Added language support in Facebook and Google+ JavaScript
