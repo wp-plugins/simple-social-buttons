@@ -62,7 +62,7 @@ This plugin automatically adds the Facebook Like button, Google plus one +1 and 
 
 = How about support? = 
 
-Follow me at Twitter @rabinek or send me a mention. I'll reply as soon as I get it. 
+Follow me at Twitter [@rabinek](http://twitter.com/rabinek "Paweł Rabinek na Twitter") or send me a mention. I'll reply as soon as I get it. 
 
 == Screenshots ==
 
