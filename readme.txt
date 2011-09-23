@@ -54,7 +54,7 @@ Yes, it's free. I hope you like it :) If so you can buy me a coffee by doing pay
 
 = Is the plug will be developed? = 
 
-Yes. I've some plans about developing Simple Social Buttons. There will be more buttons, more customization, and more powerfull! Follow me on Twitter @rabinek and stay tuned. 
+Yes. I've some plans about developing Simple Social Buttons. There will be more buttons, more customization, and more powerfull! Follow me on Twitter [@rabinek](http://twitter.com/rabinek "Paweł Rabinek na Twitter") and stay tuned. 
 
 = Why use this plugin? =
 
