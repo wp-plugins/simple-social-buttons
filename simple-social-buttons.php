@@ -1,7 +1,7 @@
 <?php
  /* 
     Plugin Name: Simple Social Buttons 
-    Plugin URI: http://blog.rabinek.pl/ 
+    Plugin URI: http://blog.rabinek.pl/
     Description: Insert social buttons into posts and archives: Facebook "Like it", Google Plus One "+1" and Twitter share. 
     Author: Paweł Rabinek 
     Version: 1.0 
