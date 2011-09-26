@@ -14,7 +14,7 @@ Simple Social Buttons adds to your posts social network buttons, such as: Facebo
 
 - Buttons above the post content
 - Buttons under the post content
-- Buttons above and under the post
+- Buttons above and under the post  
 
 That's not all. Simple Social Buttons can also add social media buttons to:
 
