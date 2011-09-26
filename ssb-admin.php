@@ -1,99 +1,119 @@
 <div class="wrap">
 
 <style type="text/css">
-   div.inside ul li { 
+   div.inside ul li {
       line-height: 16px;
       list-style-type: square;
       margin-left: 15px;
    }
 </style>
 
-<h2>Simple Social Buttons - <?php _e('Settings', 'simplesocialbuttons'); ?></h2>
+<h2>Simple Social Buttons - <?php _e('Settings'); ?>:</h2>
 
 <p><?php _e('<strong>Simple Social Buttons</strong> by <strong>Paweł Rabinek</strong>. This plugin adds a social media buttons, such as: <strong>Google +1</strong>, <strong>Facebook Like it</strong> and <strong>Twitter share</strong>. The most flexible social buttons plugin ever.', 'simplesocialbuttons'); ?></p>
 
-<?php 
+<?php
 
-if($_POST['hiddenconfirm'] == 'Y') { 
+if(strtolower($_POST['hiddenconfirm']) == 'y') {
 
-   // save settings
-   
-   $ssb_googleplus = $_POST['ssb_googleplus'];
-   update_option('ssb_googleplus', $ssb_googleplus);  
-    
-   $ssb_fblike = $_POST['ssb_fblike'];
-   update_option('ssb_fblike', $ssb_fblike);
-   
-   $ssb_twitter = $_POST['ssb_twitter'];
-   update_option('ssb_twitter', $ssb_twitter);
+	/**
+	 * Compile settings array
+	 * @see http://codex.wordpress.org/Function_Reference/wp_parse_args
+	 */
 
-   $ssb_beforepost = $_POST['ssb_beforepost'];
-   update_option('ssb_beforepost', $ssb_beforepost);
+	$updateSettings = array(
+		'googleplus' => $_POST['ssb_googleplus'],
+		'fblike' => $_POST['ssb_fblike'],
+		'twitter' => $_POST['ssb_twitter'],
 
-   $ssb_afterpost = $_POST['ssb_afterpost'];
-   update_option('ssb_afterpost', $ssb_afterpost);
+		'beforepost' => $_POST['ssb_beforepost'],
+		'afterpost' => $_POST['ssb_afterpost'],
+		'beforepage' => $_POST['ssb_beforepage'],
+		'afterpage' => $_POST['ssb_afterpage'],
+		'beforearchive' => $_POST['ssb_beforearchive'],
+		'afterarchive' => $_POST['ssb_afterarchive'],
 
-   $ssb_beforepage = $_POST['ssb_beforepage'];
-   update_option('ssb_beforepage', $ssb_beforepage);
+		'showfront' => $_POST['ssb_showfront'],
+		'showcategory' => $_POST['ssb_showcategory'],
+		'showarchive' => $_POST['ssb_showarchive'],
+		'showtag' => $_POST['ssb_showtag'],
 
-   $ssb_afterpage = $_POST['ssb_afterpage'];
-   update_option('ssb_afterpage', $ssb_afterpage);
-   
-   $ssb_showfront = $_POST['ssb_showfront'];
-   update_option('ssb_showfront', $ssb_showfront);
-   
-   $ssb_showcategory = $_POST['ssb_showcategory'];
-   update_option('ssb_showcategory', $ssb_showcategory);
-   
-   $ssb_showarchive = $_POST['ssb_showarchive'];
-   update_option('ssb_showarchive', $ssb_showarchive);
-   
-   $ssb_showtag = $_POST['ssb_showtag'];
-   update_option('ssb_showtag', $ssb_showtag);
+		'override_css' => $_POST['ssb_override_css'],
+	);
 
-   $ssb_beforearchive = $_POST['ssb_beforearchive'];
-   update_option('ssb_beforearchive', $ssb_beforearchive);
+	$this->update_settings( $updateSettings );
 
-   $ssb_afterarchive = $_POST['ssb_afterarchive'];
-   update_option('ssb_afterarchive', $ssb_afterarchive);
-      
-}else{ 
-   
-   // get settings from database
-   $ssb_googleplus = get_option('ssb_googleplus'); 
-   $ssb_fblike = get_option('ssb_fblike'); 
-   $ssb_twitter = get_option('ssb_twitter'); 
-
-   $ssb_beforepost = get_option('ssb_beforepost'); 
-   $ssb_afterpost = get_option('ssb_afterpost'); 
-
-   $ssb_beforepage = get_option('ssb_beforepage'); 
-   $ssb_afterpage = get_option('ssb_afterpage'); 
-   
-   $ssb_showfront = get_option('ssb_showfront'); 
-   $ssb_showcategory = get_option('ssb_showcategory'); 
-   $ssb_showarchive = get_option('ssb_showarchive'); 
-   $ssb_showtag = get_option('ssb_showtag'); 
-
-   $ssb_beforearchive = get_option('ssb_beforearchive'); 
-   $ssb_afterarchive = get_option('ssb_afterarchive'); 
 } 
+
+/**
+ * HACK: Use one big array instead of a bunchload of single options
+ * @author Fabian Wolf
+ * @link http://usability-idealist.de/
+ * @since 1.2.1
+ */
+
+// get settings from database
+$settings = $this->get_settings();
+
+extract( $settings, EXTR_PREFIX_ALL, 'ssb' );
 
 ?>
 
 
 <div class="postbox-container" style="width:69%">
    <div id="poststuff">
-      <form name="ssb_form" method="post" action="">
-      
+      <form name="ssb_form" method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
+
       <div class="postbox">
          <h3><?php _e('Select buttons', 'simplesocialbuttons'); ?></h3>
          <div class="inside">
             <h4><?php _e('Select social media buttons:', 'simplesocialbuttons'); ?></h4>
-            
-            <p><input type="checkbox" name="ssb_googleplus" id="ssb_googleplus" value="1" <?php if(!empty($ssb_googleplus)) { ?>checked="checked"<?php } ?> /> <label for="ssb_googleplus"><?php _e('Google plus one (+1)', 'simplesocialbuttons'); ?></label></p>
-            <p><input type="checkbox" name="ssb_fblike" id="ssb_fblike" value="1" <?php if(!empty($ssb_fblike)) { ?>checked="checked"<?php } ?> /> <label for="ssb_fblike"><?php _e('Facebook Like it', 'simplesocialbuttons'); ?></label></p>
-            <p><input type="checkbox" name="ssb_twitter" id="ssb_twitter" value="1" <?php if(!empty($ssb_twitter)) { ?>checked="checked"<?php } ?> /> <label for="ssb_twitter"><?php _e('Twitter share', 'simplesocialbuttons'); ?></label></p>
+
+
+			<p><select name="ssb_googleplus" id="ssb_googleplus">
+				<option value=""<?php if(empty($ssb_googleplus) != false) {
+				 	 ?>selected="selected"<?php
+				} ?>><?php _e('inactive', 'simplesocialbuttons'); ?></option>
+
+			<?php for($pos = 1; $pos < 4; $pos++) { ?>
+				<option value="<?php echo $pos; ?>"<?php if($ssb_googleplus == $pos) {
+					 ?>selected="selected"<?php
+				} ?>> # <?php echo $pos; ?> </option>
+			<?php } ?>
+			</select> &nbsp;
+			<label for="ssb_googleplus"><?php _e('Google plus one (+1)', 'simplesocialbuttons'); ?></label></p>
+
+			<!-- fblike -->
+			<p><select name="ssb_fblike" id="ssb_fblike">
+				<option value=""<?php if(empty($ssb_fblike) != false) {
+				 	 ?>selected="selected"<?php
+				} ?>><?php _e('inactive', 'simplesocialbuttons'); ?></option>
+
+			<?php for($pos = 1; $pos < 4; $pos++) { ?>
+				<option value="<?php echo $pos; ?>"<?php if($ssb_fblike == $pos) {
+					 ?>selected="selected"<?php
+				} ?>> # <?php echo $pos; ?> </option>
+			<?php } ?>
+			</select> &nbsp;
+			<label for="ssb_fblike"><?php _e('Facebook Like it', 'simplesocialbuttons'); ?></label></p>
+			<!-- /fblike -->
+
+			<!-- twitter -->
+			<p><select name="ssb_twitter" id="ssb_twitter">
+				<option value=""<?php if(empty($ssb_twitter) != false) {
+				 	 ?>selected="selected"<?php
+				} ?>><?php _e('inactive', 'simplesocialbuttons'); ?></option>
+
+			<?php for($pos = 1; $pos < 4; $pos++) { ?>
+				<option value="<?php echo $pos; ?>"<?php if($ssb_twitter == $pos) {
+					 ?>selected="selected"<?php
+				} ?>> # <?php echo $pos; ?> </option>
+			<?php } ?>
+			</select> &nbsp;
+			<label for="ssb_twitter"><?php _e('Twitter share', 'simplesocialbuttons'); ?></label></p>
+			<!-- /twitter -->
+
+			<p><label for="ssb_override_css"><input type="checkbox" name="ssb_override_css" id="ssb_override_css" value="1" <?php if($ssb_override_css) { echo 'checked="checked"'; } ?>/> <?php _e('Disable plugin CSS (only advanced users)'); ?></label></p>
          </div>
       </div>
 
@@ -114,26 +134,26 @@ if($_POST['hiddenconfirm'] == 'Y') {
             <p><input type="checkbox" name="ssb_afterpage" id="ssb_afterpage" value="1" <?php if(!empty($ssb_afterpage)) { ?>checked="checked"<?php } ?> /> <label for="ssb_afterpage"><?php _e('After the page content', 'simplesocialbuttons'); ?></label></p>
          </div>
       </div>
-            
+
       <div class="postbox">
          <h3><?php _e('Archives - display settings', 'simplesocialbuttons'); ?></h3>
          <div class="inside">
             <h4><?php _e('Select additional places to display buttons:', 'simplesocialbuttons'); ?></h4>
             <p><input type="checkbox" name="ssb_showfront" id="ssb_showfront" value="1" <?php if(!empty($ssb_showfront)) { ?>checked="checked"<?php } ?> /> <label for="ssb_showfront"><?php _e('Show at frontpage', 'simplesocialbuttons'); ?></label></p>
             <p><input type="checkbox" name="ssb_showcategory" id="ssb_showcategory" value="1" <?php if(!empty($ssb_showcategory)) { ?>checked="checked"<?php } ?> /> <label for="ssb_showcategory"><?php _e('Show at category pages', 'simplesocialbuttons'); ?></label></p>
-            <p><input type="checkbox" name="ssb_showarchive" id="ssb_showarchive" value="1" <?php if(!empty($ssb_showarchive)) { ?>checked="checked"<?php } ?> /> <label for="ssb_showarchive"><?php _e('Show at archive pages', 'simplesocialbuttons'); ?></label></p>   
-            <p><input type="checkbox" name="ssb_showtag" id="ssb_showtag" value="1" <?php if(!empty($ssb_showtag)) { ?>checked="checked"<?php } ?> /> <label for="ssb_showtag"><?php _e('Show at tag pages', 'simplesocialbuttons'); ?></label></p>      
-            
+            <p><input type="checkbox" name="ssb_showarchive" id="ssb_showarchive" value="1" <?php if(!empty($ssb_showarchive)) { ?>checked="checked"<?php } ?> /> <label for="ssb_showarchive"><?php _e('Show at archive pages', 'simplesocialbuttons'); ?></label></p>
+            <p><input type="checkbox" name="ssb_showtag" id="ssb_showtag" value="1" <?php if(!empty($ssb_showtag)) { ?>checked="checked"<?php } ?> /> <label for="ssb_showtag"><?php _e('Show at tag pages', 'simplesocialbuttons'); ?></label></p>
+
             <h4><?php _e('Place buttons on archives:', 'simplesocialbuttons'); ?></h4>
             <p><input type="checkbox" name="ssb_beforearchive" id="ssb_beforearchive" value="1" <?php if(!empty($ssb_beforearchive)) { ?>checked="checked"<?php } ?> /> <label for="ssb_beforearchive"><?php _e('Before the content', 'simplesocialbuttons'); ?></label></p>
             <p><input type="checkbox" name="ssb_afterarchive" id="ssb_afterarchive" value="1" <?php if(!empty($ssb_afterarchive)) { ?>checked="checked"<?php } ?> /> <label for="ssb_afterarchive"><?php _e('After the content', 'simplesocialbuttons'); ?></label></p>
          </div>
       </div>
-      
+
       <div class="submit">
          <input type="hidden" name="hiddenconfirm" value="Y" />
-         <input type="submit" name="Submit" class="button-primary" value="<?php _e('Save settings', 'simplesocialbuttons'); ?>" />
-      </div>  
+         <input type="submit" name="Submit" class="button-primary" value="<?php _e('Save Changes'); ?>" />
+      </div>
 
    </form>
 </div>
@@ -171,7 +191,7 @@ if($_POST['hiddenconfirm'] == 'Y') {
          </ul>
          </div>
       </div>
-      
+
       <div class="postbox">
          <h3><?php _e('Usefull links:', 'simplesocialbuttons'); ?></h3>
          <div class="inside">
@@ -182,7 +202,7 @@ if($_POST['hiddenconfirm'] == 'Y') {
          </ul>
          </div>
       </div>
-      
+
    </div>
 </div>
 </div>
