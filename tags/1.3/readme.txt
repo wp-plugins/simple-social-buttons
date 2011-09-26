@@ -39,8 +39,9 @@ Feel free if you want to create a translation of this plugin. Contact me via e-m
 For more information about Wordpress and SEO, visit my [SEO Blog](http://blog.rabinek.pl "Paweł Rabinek - Blog SEO") (in polish).
 
 **Big thanks to:** 
-* [@RhooManu](http://twitter.com/RhooManu "RhooManu on Twitter") for french translation
-* [Usability Idealist](http://usability-idealist.de/ "Fabian Wolf - Usability Idealist") for converting code to object-oriented, adding buttons order and many fixes
+
+- [@RhooManu](http://twitter.com/RhooManu "RhooManu on Twitter") for french translation
+- [Usability Idealist](http://usability-idealist.de/ "Fabian Wolf - Usability Idealist") for converting code to object-oriented, adding buttons order and many fixes
  
 
 == Installation ==
