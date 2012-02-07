@@ -34,31 +34,31 @@
 
 
 class SimpleSocialButtonsPR {
-   var $pluginName = 'Simple Social Buttons';
-	var $pluginVersion = '1.3';
-   var $pluginPrefix = 'ssb_pr_';
+	var $pluginName = 'Simple Social Buttons';
+	var $pluginVersion = '1.4';
+	var $pluginPrefix = 'ssb_pr_';
+	var $hideCustomMetaKey = '_ssb_hide';
    
-   // plugin default settings
-   var $pluginDefaultSettings = array(
-			'googleplus' => '1',
-         'fblike' => '2',
-			'twitter' => '3',
-			'beforepost' => '1',
-			'afterpost' => '0',
-			'beforepage' => '1',
-			'afterpage' => '0',
-			'beforearchive' => '0',
-			'afterarchive' => '0'
-		);
-   
-   // defined buttons
-   var $arrKnownButtons = array('fblike', 'googleplus', 'twitter');
+	// plugin default settings
+	var $pluginDefaultSettings = array(
+		'googleplus' => '1',
+		'fblike' => '2',
+		'twitter' => '3',
+		'beforepost' => '1',
+		'afterpost' => '0',
+		'beforepage' => '1',
+		'afterpage' => '0',
+		'beforearchive' => '0',
+		'afterarchive' => '0'
+	);
+
+	// defined buttons
+	var $arrKnownButtons = array('fblike', 'googleplus', 'twitter');
 
 
 	/**
 	 * Constructor
 	 */
-
 	function __construct() {
 		register_activation_hook( __FILE__, array(&$this, 'plugin_install') );
 		register_deactivation_hook( __FILE__, array(&$this, 'plugin_uninstall') );
@@ -66,28 +66,27 @@ class SimpleSocialButtonsPR {
 		/**
 		 * Action hooks
 		 */
-
+		add_action( 'create_ssb', array(&$this, 'direct_display'), 10 , 1);
+		
 		/**
 		 * basic init
 		 */
-		add_action( 'init', 		array(&$this, 'plugin_init') );
+		add_action( 'init', array(&$this, 'plugin_init') );
 
 		// get settings
 		$currentSettings = $this->get_settings();
 
 		// social JS + CSS data
-		add_action( 'wp_footer', 	array(&$this, 'include_social_js') );
+		add_action( 'wp_footer', array(&$this, 'include_social_js') );
 		if(!isset($currentSettings['override_css'])) {
-			add_action( 'wp_head',		array(&$this, 'include_css') );
+			add_action( 'wp_head', array(&$this, 'include_css') );
 		}
-
-
+		
 		/**
 		 * Filter hooks
 		 */
-
-		add_filter( 'the_content', 	array(&$this, 'insert_buttons') );
-		add_filter( 'the_excerpt',	array(&$this, 'insert_buttons') );
+		add_filter( 'the_content', array(&$this, 'insert_buttons') );
+		add_filter( 'the_excerpt', array(&$this, 'insert_buttons') );
 	}
 
 	function plugin_init() {
@@ -97,7 +96,6 @@ class SimpleSocialButtonsPR {
 	/**
 	 * Both avoids time-wasting https calls AND provides better SSL-protection if the current server is accessed using HTTPS
 	 */
-
 	public function get_current_http( $echo = true ) {
 		$return = 'http' . (strtolower($_SERVER['HTTPS']) == 'on' ? 's' : '') . '://';
 
@@ -109,10 +107,20 @@ class SimpleSocialButtonsPR {
 		return $return;
 	}
 
-	function include_social_js() {
+	function include_social_js($force_include = false) {
 		$lang = get_bloginfo('language');
 		$lang_g = strtolower(substr($lang, 0, 2));
 		$lang_fb = str_replace('-', '_', $lang);
+
+		/**
+		 * Disable loading of social network JS if disabled for specific post type
+		 *
+		 * NOTE: Conditional tags seem to work only AFTER the page has loaded, thus the code has been added here instead of at the plugin init
+		 * @author Fabian Wolf
+		 * @link http://usability-idealist.de/
+		 * @date Di 20. Dez 17:50:01 CET 2011
+		 */
+		if($this->where_to_insert() != false || $force_include == true) {
 ?>
 
 <!-- Simple Social Buttons plugin -->
@@ -126,6 +134,7 @@ class SimpleSocialButtonsPR {
 <!-- /End of Simple Social Buttons -->
 
 <?php
+		}
 	}
 
 
@@ -135,7 +144,7 @@ class SimpleSocialButtonsPR {
 <!-- Simple Social Buttons style sheet -->
 <style type="text/css">
    div.simplesocialbuttons { height: 20px; margin: 10px auto 10px 0; text-align: center; clear: left; }
-   div.simplesocialbutton { float: left; text-align: center; }
+   div.simplesocialbutton { float: left; text-align: center;}
 </style>
 <!-- End of Simple Social Buttons -->
 
@@ -145,7 +154,6 @@ class SimpleSocialButtonsPR {
 	/**
 	 * Called when installing = activating the plugin
 	 */
-
 	function plugin_install() {
 		$defaultSettings = $this->check_old_settings();
 
@@ -164,7 +172,6 @@ class SimpleSocialButtonsPR {
 	/**
 	 * Backward compatiblity for newer versions
 	 */
-
 	function check_old_settings() {
 		$return = $this->pluginDefaultSettings;
 
@@ -180,7 +187,6 @@ class SimpleSocialButtonsPR {
    /**
     * Plugin unistall and database clean up
     */
-           
 	function plugin_uninstall() {
 		if( !defined( 'ABSPATH') && !defined('WP_UNINSTALL_PLUGIN') ) {
 			exit();
@@ -192,10 +198,9 @@ class SimpleSocialButtonsPR {
 	}
 
 
-   /** 
-    * Get settings from database
-    */
-           
+	/** 
+	 * Get settings from database
+	 */
 	public function get_settings() {
 		$return = get_option($this->pluginPrefix . 'settings' );
 		if(empty($return) != false) {
@@ -208,7 +213,7 @@ class SimpleSocialButtonsPR {
 	/**
 	 * Update settings 
 	 */
-   function update_settings( $newSettings = array() ) {
+	function update_settings( $newSettings = array() ) {
 		$return = false;
 
 		// compile settings
@@ -220,7 +225,6 @@ class SimpleSocialButtonsPR {
 		 * @param mixed $args
 		 * @param mixed $defaults
 		 */
-
 		$updatedSettings = wp_parse_args( $newSettings, $currentSettings );
 
 		if($currentSettings != $updatedSettings ) {
@@ -233,100 +237,67 @@ class SimpleSocialButtonsPR {
    /**
     * Returns true on pages where buttons should be shown
     */
-           
 	function where_to_insert() {
 		$return = false;
+		
 		// get settings from database
 		$settings = $this->get_settings();
 
 		extract( $settings, EXTR_PREFIX_ALL, 'ssb' );
 
 		// display on single post?
-		if(is_single() && ($ssb_beforepost || $ssb_afterpost)) {
+		if(is_single() && ($ssb_beforepost || $ssb_afterpost) && array_shift(get_post_meta(get_the_ID(), $this->hideCustomMetaKey)) != 'true') {
 			$return = true;
 		}
 
 		// display on single page?
-		if(is_page() && ($ssb_beforepage || $ssb_afterpage)) {
+		if(is_page() && ($ssb_beforepage || $ssb_afterpage) && array_shift(get_post_meta(get_the_ID(), $this->hideCustomMetaKey)) != 'true') {
 			$return = true;
 		}
 
 		// display on frontpage?
-		if(is_front_page() && $ssb_showfront) {
+		if((is_front_page() || is_home()) && $ssb_showfront) {
 			$return = true;
 		}
 
-      // display on category archive?
+      	// display on category archive?
 		if(is_category() && $ssb_showcategory) {
 			$return = true;
 		}
 
-      // display on date archive?
+      	// display on date archive?
 		if(is_date() && $ssb_showarchive)
 		{
 			$return = true;
 		}
 
-      // display on tag archive?
+      	// display on tag archive?
 		if(is_tag() && $ssb_showtag) {
 			$return = true;
 		}
 		return $return;
 	}
-	
-   /**
+
+	/**
 	 * Insert the buttons to the content
 	 */
-	function insert_buttons($content) {
-		
+	function insert_buttons($content) {		
 		// Insert or  not?
-      if(!$this->where_to_insert() ) {
+		if(!$this->where_to_insert() ) {
 			return $content;
 		}
 		
-		// define empty buttons code to use
-		$ssb_buttonscode = ''; 
-
-		// get post permalink and title
-		$permalink = get_permalink();
-		$title = get_the_title();
-
 		// get settings from database
 		$settings = $this->get_settings();
-
+		
 		extract( $settings, EXTR_PREFIX_ALL, 'ssb' );
 
-		/**
-		 * Sorting the buttons 
-		 */
-
-		foreach($this->arrKnownButtons as $button_name) {
-			if(!empty($settings[$button_name]) ) {
-				$arrButtons[$button_name] = $settings[$button_name];
-			}
+		// creating order
+		$order = array();
+		foreach ($this->arrKnownButtons as $button_name) {
+			$order[$button_name] = $settings[$button_name];
 		}
-		asort($arrButtons);
-
-		foreach($arrButtons as $button_name => $button_sort) {
-			switch($button_name) {
-				case 'googleplus':
-					$arrButtonsCode[] = '<div class="simplesocialbutton ssb-button-googleplus"><!-- Google Plus One--><g:plusone size="medium" count="true" href="'.$permalink.'"></g:plusone></div>';
-					break;
-				case 'fblike':
-					$arrButtonsCode[] = '<div class="simplesocialbutton ssb-button-fblike"><!-- Facebook like--><div id="fb-root"></div><fb:like href="'.$permalink.'" send="false" layout="button_count" width="100" show_faces="false" action="like" font=""></fb:like></div>';
-					break;
-				case 'twitter':
-					$arrButtonsCode[] = '<div class="simplesocialbutton ssb-buttom-twitter"><!-- Twitter--><a name="twitter_share" data-count="horizontal" href="http://twitter.com/share" data-text="'.$title.'" data-url="'.$permalink.'" class="twitter-share-button" rel="nofollow"></a></div>';
-					break;
-			}
-		}
-
-
-		if(isset($arrButtonsCode) != false) {
-			$ssb_buttonscode = '<div class="simplesocialbuttons">'."\n";
-			$ssb_buttonscode .= implode("\n", $arrButtonsCode) . "\n";
-			$ssb_buttonscode .= '</div>'."\n";
-		}
+		$ssb_buttonscode = $this->generate_buttons_code($order);
 
 		if(is_single()) {
 			if($ssb_beforepost) {
@@ -354,8 +325,69 @@ class SimpleSocialButtonsPR {
 		return $content;
 
 	}
+	
+	function direct_display($order = null)
+	{
+		// Return false if hide SSB for this page/post is disabled
+		if (is_single() && array_shift(get_post_meta(get_the_ID(), $this->hideCustomMetaKey)) == 'true') return false;
+		
+		// Display buttons and scripts
+		$buttons_code = $this->generate_buttons_code($order);
+		echo $buttons_code;
+		$this->include_social_js(true);
+	}
+	
+	/**
+	 * Generate buttons html code with specified order
+	 * 
+	 * @param mixed $order - order of social buttons
+	 */
+	function generate_buttons_code($order = null)
+	{	
+		foreach ($this->arrKnownButtons as $button_name) {
+			$defaultOrder[$button_name] = $this->pluginDefaultSettings[$button_name];
+		}
+		
+		$order = wp_parse_args($order, $defaultOrder);
 
+		// define empty buttons code to use
+		$ssb_buttonscode = ''; 
 
+		// get post permalink and title
+		$permalink = get_permalink();
+		$title = get_the_title();
+
+		//Sorting the buttons 
+		foreach($this->arrKnownButtons as $button_name) {
+			if(!empty($order[$button_name]) && (int)$order[$button_name] != 0) {
+				$arrButtons[$button_name] = $order[$button_name];
+			}
+		}
+		@asort($arrButtons);
+
+		$arrButtonsCode = array();
+		foreach($arrButtons as $button_name => $button_sort) {
+			switch($button_name) {
+				case 'googleplus':
+					$arrButtonsCode[] = '<div class="simplesocialbutton ssb-button-googleplus"><!-- Google Plus One--><g:plusone size="medium"></g:plusone></div>';
+					break;
+				case 'fblike':
+					$arrButtonsCode[] = '<div class="simplesocialbutton ssb-button-fblike"><!-- Facebook like--><div id="fb-root"></div><fb:like href="'.$permalink.'" send="false" layout="button_count" width="100" show_faces="false" action="like" font=""></fb:like></div>';
+					break;
+				case 'twitter':
+					$arrButtonsCode[] = '<div class="simplesocialbutton ssb-buttom-twitter"><!-- Twitter--><a name="twitter_share" data-count="horizontal" href="http://twitter.com/share" data-text="'.$title.'" data-url="'.$permalink.'" class="twitter-share-button" rel="nofollow"></a></div>';
+					break;
+			}
+		}
+
+		if(count($arrButtonsCode) > 0) {
+			$ssb_buttonscode = '<div class="simplesocialbuttons">'."\n";
+			$ssb_buttonscode .= implode("\n", $arrButtonsCode) . "\n";
+			$ssb_buttonscode .= '</div>'."\n";
+		}
+		
+		return $ssb_buttonscode;
+	}
 } // end class
 
 
@@ -364,18 +396,21 @@ class SimpleSocialButtonsPR {
  *
  * Gets only initiated if this plugin is called inside the admin section ;)
  */
-
 class SimpleSocialButtonsPR_Admin extends SimpleSocialButtonsPR {
 
 	function __construct() {
 		parent::__construct();
 
 		add_action('admin_menu', array(&$this, 'admin_actions') );
+		add_action('add_meta_boxes', array(&$this, 'ssb_meta_box'));
+		add_action('save_post', array(&$this, 'ssb_save_meta'), 10, 2);
+		
 		add_filter('plugin_action_links', array(&$this, 'plugin_action_links'), 10, 2 );
 	}
 
 	public function admin_actions() {
-    	add_options_page('Simple Social Buttons ', 'Simple Social Buttons ', 1, 'simple-social-buttons', array(&$this, 'admin_page') );
+		if (current_user_can('administrator'))
+    		add_options_page('Simple Social Buttons ', 'Simple Social Buttons ', 1, 'simple-social-buttons', array(&$this, 'admin_page') );
 	}
 
 	public function admin_page() {
@@ -394,18 +429,109 @@ class SimpleSocialButtonsPR_Admin extends SimpleSocialButtonsPR {
 		}
 
 		if ($file == $this_plugin) {
-			$settings_link = '<a href="' . get_bloginfo('wpurl') . '/wp-admin/options-general.php?page=simple-social-buttons">'.__('Settings').'</a>';
+			$settings_link = '<a href="' . get_bloginfo('wpurl') . '/wp-admin/options-general.php?page=simple-social-buttons">'.__('Settings', 'simplesocialbuttons').'</a>';
 			array_unshift($links, $settings_link);
 		}
 
 		return $links;
 	}
-}
+	
+	/**
+	 * Register meta box to hide/show SSB plugin on single post or page
+	 */
+	public function ssb_meta_box()
+	{		
+		$postId = $_GET['post'];
+		$postType = get_post_type($postId);
+		
+		if ($postType != 'page' && $postType != 'post') return false;
+		
+		$currentSsbHide = get_post_custom_values($this->hideCustomMetaKey, $postId);
+		$currentSettings = $this->get_settings();
+		
+		if ($currentSsbHide[0] == 'true') {
+			$checked = true;
+		} else {
+			$checked = false;			
+		}
+		
+		// Rendering meta box
+		if (!function_exists('add_meta_box')) include('includes/template.php');
+		add_meta_box('ssb_meta_box', __('SSB Settings', 'simplesocialbuttons'), array(&$this, 'render_ssb_meta_box'), $postType, 'side', 'default', array('type' => $postType, 'checked' => $checked));
+	}
+	
+	/**
+	 * Showing custom meta field
+	 */
+	public function render_ssb_meta_box($post, $metabox)
+	{
+		wp_nonce_field( plugin_basename( __FILE__ ), 'ssb_noncename' );	
+?>
+
+<label for="<?php echo $this->hideCustomMetaKey;?>"><input type="checkbox" id="<?php echo $this->hideCustomMetaKey;?>" name="<?php echo $this->hideCustomMetaKey;?>" value="true" <?php if ($metabox['args']['checked']):?>checked="checked"<?php endif;?>/>&nbsp;<?php echo __('Hide Simple Social Buttons', 'simplesocialbuttons');?></label>
+
+<?php
+	}
+	
+		
+	/**
+	 * Saving custom meta value
+	 */
+	public function ssb_save_meta($post_id, $post)
+	{		
+		$postId = (int)$post_id;
+		
+		// Verify if this is an auto save routine. 
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
+			return;
+	
+		// Verify this came from the our screen and with proper authorization
+		if ( !wp_verify_nonce( $_POST['ssb_noncename'], plugin_basename( __FILE__ ) ) )
+			return;
+	
+		// Check permissions
+		if ( 'page' == $_POST['post_type'] ) {
+			if ( !current_user_can( 'edit_page', $post_id ) )
+	       		return;
+		} else {
+			if ( !current_user_can( 'edit_post', $post_id ) )
+			return;
+		}
+		
+		// Saving data
+		$newValue = (isset($_POST[$this->hideCustomMetaKey])) ? $_POST[$this->hideCustomMetaKey] : 'false';
+		
+		update_post_meta($postId, $this->hideCustomMetaKey, $newValue);
+	}
+
+
+} // end SimpleSocialButtonsPR_Admin
 
 if(is_admin() ) {
 	$_ssb_pr = new SimpleSocialButtonsPR_Admin();
 } else {
 	$_ssb_pr = new SimpleSocialButtonsPR();
+}
+
+/**
+ * Function to insert Simple Social Buttons directly in template.
+ * 
+ * @param mixed $order - order of the buttons in array or string (parsed by wp_parse_args())
+ * 
+ * @example 1 - use in template with default order
+ * get_ssb();
+ * 
+ * @example 2 - use in template with specified order
+ * get_ssb('googleplus=3&fblike=2&twitter=1');
+ * 
+ * @example 3 - hiding button by setting order to 0. By using code below googleplus button won't be displayed
+ * get_ssb('googleplus=0&fblike=1&twitter=2');
+ * 
+ * 
+ */
+function get_ssb($order = null)
+{
+	do_action('create_ssb', $order);
 }
 
 ?>
