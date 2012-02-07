@@ -3,8 +3,8 @@ Contributors: xradar
 Donate link: http://blog.rabinek.pl/
 Tags: facebook, google, twitter, plus one, like it, like, share
 Requires at least: 2.8
-Tested up to: 3.2.1
-Stable tag: 1.3
+Tested up to: 3.3.1
+Stable tag: 1.4
 
 Insert and customize social buttons: Facebook Like it, Google plus +1 and Twitter share. Share your content with friends.
 
@@ -32,17 +32,21 @@ Simple Social Buttons is currently in the following languages:
 
 - English
 - French 
-- Polish (język polski)
+- Polish
+- German
+- Spanish
 
 Feel free if you want to create a translation of this plugin. Contact me via e-mail or Twitter [@rabinek](https://twitter.com/rabinek "Paweł Rabinek on Twitter"), and I'll add your's translation to Simple Social Buttons.
 
 For more information about Wordpress and SEO, visit my [SEO Blog](http://blog.rabinek.pl "Paweł Rabinek - Blog SEO") (in polish).
+Also check my new SEO tool [SEO Audit](http://www.seoptimer.com "Free SEO Audit tool").
 
-**Big thanks to:** 
+Big thanks for support in development of this plugin for:
 
-- [@RhooManu](http://twitter.com/RhooManu "RhooManu on Twitter") for french translation
-- [Usability Idealist](http://usability-idealist.de/ "Fabian Wolf - Usability Idealist") for converting code to object-oriented, adding buttons order and many fixes
- 
+- Karol from [Liga BBVA](http://www.ligabbva.pl "Liga hiszpańska BBVA") for PHP developement
+- Talem Technologies - [Pozycjonowanie Bydgoszcz](http://www.talem.eu "SEO Pozycjonowanie Bydgoszcz") for time and resources
+- See more thanks in FAQ section
+
 
 == Installation ==
 
@@ -52,6 +56,8 @@ For more information about Wordpress and SEO, visit my [SEO Blog](http://blog.ra
 4. (Optional) Customize the buttons in the Settings > Simple Social Buttons menu
 
 That's it. Buttons will show on your blog posts.
+
+You can also use this plugin directly in your template by function `<?php get_ssb([$order]); ?>`, where `$order` is a string with args ( example: `$order = "googleplus=1&fblike=2&twitter=3"` ) or an array ( example: `$order = array('googleplus' => 1, 'fblike' => 2, 'twitter' => 3)` ). If you would like to hide a specified button, you should set order to "0".
 
 
 == Frequently Asked Questions ==
@@ -72,11 +78,25 @@ This plugin automatically adds the Facebook Like button, Google plus one +1 and 
 
 Follow me at Twitter [@rabinek](http://twitter.com/rabinek "Paweł Rabinek na Twitter") or send me a mention. I'll reply as soon as I get it. You can also visit my [SEO Blog](http://blog.rabinek.pl "Paweł Rabinek - Blog SEO") (in polish).
 
+= Is there a template tag for custom install? =
+
+Yes, you can use `<?php get_ssb(); ?>` in your template file (see installation section). Default instalation don't require that. 
+
+= Who helped to improve Simple Social Buttons? = 
+
+**Big thanks to:** 
+
+- [@RhooManu](http://twitter.com/RhooManu "RhooManu on Twitter") for french translation
+- [Usability Idealist](http://usability-idealist.de/ "Fabian Wolf - Usability Idealist") for converting code to object-oriented, adding buttons order and many fixes
+- [@Dennis Schreiber](http://twitter.com/flammbar "Dennis Schreiber on Twitter") for german translation
+- Marcos González for spanish translation 
+
 == Screenshots ==
 
 1. Simple Social Buttons - plugin options
 2. Plugin example
 3. Plugin on archive
+4. Widget in post edition
 
 
 == Changelog ==
@@ -98,3 +118,10 @@ Follow me at Twitter [@rabinek](http://twitter.com/rabinek "Paweł Rabinek na Tw
 * Fixed plugin settings slot not being highlighted in the admin navigation / general settings
 * Added "disable regular CSS" option to let advanced users use their own CSS code
 * Lots of fine-tuning
+
+= 1.4 =
+* Added custom meta to disable SSB plugin on sigle page/post (managed in admin menu)
+* Function get_ssb() to directly use in template to show Simple Social Buttons in specified order
+* Widget manage page in wp-admin available only for Administrator
+* Added German and Spanish translation
+* Fine-tuning
