@@ -12,7 +12,7 @@ Insert and customize social buttons: Facebook Like it, Google plus +1 and Twitte
 
 Simple Social Buttons adds to your posts social network buttons, such as: **Facebook "Like it!"**, **Google plus on "+1"** and **Twitter share**. Plugin is fully customizable. You can decide where to put those buttons:
 
-- Buttons above the post content
+- Buttons above the post content 
 - Buttons under the post content
 - Buttons above and under the post
 
@@ -46,7 +46,6 @@ Big thanks for support in development of this plugin for:
 - Karol from [Liga BBVA](http://www.ligabbva.pl "Liga hiszpańska BBVA") for PHP developement
 - Talem Technologies - [Pozycjonowanie Bydgoszcz](http://www.talem.eu "SEO Pozycjonowanie Bydgoszcz") for time and resources
 - See more thanks in FAQ section
-
 
 == Installation ==
 
