@@ -47,7 +47,6 @@ Big thanks for support in development of this plugin for:
 - Talem Technologies - [Pozycjonowanie Bydgoszcz](http://www.talem.eu "SEO Pozycjonowanie Bydgoszcz") for time and resources
 - See more thanks in FAQ section
 
-
 == Installation ==
 
 1. Download the latest version of Simple Social Buttons
