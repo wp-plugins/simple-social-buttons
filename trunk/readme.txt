@@ -4,7 +4,7 @@ Donate link: http://blog.rabinek.pl/
 Tags: facebook, google, twitter, plus one, like it, like, share
 Requires at least: 2.8
 Tested up to: 3.3.1
-Stable tag: 1.4.1
+Stable tag: 1.4.2
 
 Insert and customize social buttons: Facebook Like it, Google plus +1 and Twitter share. Share your content with friends.
 
