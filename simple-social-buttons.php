@@ -4,7 +4,7 @@
     Plugin URI: http://blog.rabinek.pl/simple-social-buttons-wordpress/
     Description: Insert social buttons into posts and archives: Facebook "Like it", Google Plus One "+1" and Twitter share.
     Author: Paweł Rabinek
-    Version: 1.3
+    Version: 1.5.1
     Author URI: http://blog.rabinek.pl/
 */
 
@@ -35,7 +35,7 @@
 
 class SimpleSocialButtonsPR {
 	var $pluginName = 'Simple Social Buttons';
-	var $pluginVersion = '1.4';
+	var $pluginVersion = '1.5.2';
 	var $pluginPrefix = 'ssb_pr_';
 	var $hideCustomMetaKey = '_ssb_hide';
    
@@ -97,7 +97,7 @@ class SimpleSocialButtonsPR {
 	 * Both avoids time-wasting https calls AND provides better SSL-protection if the current server is accessed using HTTPS
 	 */
 	public function get_current_http( $echo = true ) {
-		$return = 'http' . (strtolower($_SERVER['HTTPS']) == 'on' ? 's' : '') . '://';
+		$return = 'http' . (strtolower(@$_SERVER['HTTPS']) == 'on' ? 's' : '') . '://';
 
 		if($echo != false) {
 			echo $return;
@@ -124,13 +124,27 @@ class SimpleSocialButtonsPR {
 ?>
 
 <!-- Simple Social Buttons plugin -->
-<script type="text/javascript" src="<?php $this->get_current_http(); ?>apis.google.com/js/plusone.js">
+<script type="text/javascript">
 //<![CDATA[
-   {lang: '<?php echo $lang_g; ?>'}
-//]]>
+// google plus
+window.___gcfg = {lang: '<?php echo $lang_g; ?>'};
+(function() {
+   var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+   po.src = 'https://apis.google.com/js/plusone.js';
+   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+})();
+// facebook 
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/<?php echo $lang_fb; ?>/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+// twitter 
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+// ]]>
 </script>
-<script type="text/javascript" src="<?php $this->get_current_http(); ?>platform.twitter.com/widgets.js"></script>
-<script type="text/javascript" src="<?php $this->get_current_http(); ?>connect.facebook.net/<?php echo $lang_fb; ?>/all.js#xfbml=1"></script>
 <!-- /End of Simple Social Buttons -->
 
 <?php
@@ -369,13 +383,13 @@ class SimpleSocialButtonsPR {
 		foreach($arrButtons as $button_name => $button_sort) {
 			switch($button_name) {
 				case 'googleplus':
-					$arrButtonsCode[] = '<div class="simplesocialbutton ssb-button-googleplus"><!-- Google Plus One--><g:plusone size="medium"></g:plusone></div>';
+					$arrButtonsCode[] = '<div class="simplesocialbutton ssb-button-googleplus"><!-- Google Plus One--><div class="g-plusone" data-size="medium" data-href="'.$permalink.'"></div></div>';
 					break;
 				case 'fblike':
-					$arrButtonsCode[] = '<div class="simplesocialbutton ssb-button-fblike"><!-- Facebook like--><div id="fb-root"></div><fb:like href="'.$permalink.'" send="false" layout="button_count" width="100" show_faces="false" action="like" font=""></fb:like></div>';
+					$arrButtonsCode[] = '<div class="simplesocialbutton ssb-button-fblike"><!-- Facebook like--><div class="fb-like" data-href="'.$permalink.'" data-send="false" data-layout="button_count" data-width="100" data-show-faces="false"></div></div>';
 					break;
 				case 'twitter':
-					$arrButtonsCode[] = '<div class="simplesocialbutton ssb-buttom-twitter"><!-- Twitter--><a name="twitter_share" data-count="horizontal" href="http://twitter.com/share" data-text="'.$title.'" data-url="'.$permalink.'" class="twitter-share-button" rel="nofollow"></a></div>';
+					$arrButtonsCode[] = '<div class="simplesocialbutton ssb-buttom-twitter"><!-- Twitter--><a href="https://twitter.com/share" class="twitter-share-button" data-text="'.$title.'" data-url="'.$permalink.'" rel="nofollow"></a></div>';
 					break;
 			}
 		}
