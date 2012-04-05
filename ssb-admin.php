@@ -198,7 +198,7 @@ extract( $settings, EXTR_PREFIX_ALL, 'ssb' );
          <ul>
             <li><a href="http://www.site5.com/in.php?id=53542" target="_blank"><?php _e('Unlimited web hosting', 'simplesocialbuttons'); ?></a></li>
             <li><a href="http://www.webceo.com/cgi-bin/go/clickthru.cgi?id=xradar" target="_blank"><?php _e('Best SEO software', 'simplesocialbuttons'); ?></a></li>
-            <li><a href="http://themeforest.net?ref=xradar" target="_blank"><?php _e('Wordpress templates', 'simplesocialbuttons'); ?></a><li>
+            <li><a href="http://themeforest.net?ref=xradar" target="_blank"><?php _e('Wordpress templates', 'simplesocialbuttons'); ?></a></li>
          </ul>
          </div>
       </div>
