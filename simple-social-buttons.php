@@ -4,7 +4,7 @@
     Plugin URI: http://blog.rabinek.pl/simple-social-buttons-wordpress/
     Description: Insert social buttons into posts and archives: Facebook "Like it", Google Plus One "+1" and Twitter share.
     Author: Paweł Rabinek
-    Version: 1.5.2
+    Version: 1.5.3
     Author URI: http://blog.rabinek.pl/
 */
 
@@ -35,7 +35,7 @@
 
 class SimpleSocialButtonsPR {
 	var $pluginName = 'Simple Social Buttons';
-	var $pluginVersion = '1.5.2';
+	var $pluginVersion = '1.5.3';
 	var $pluginPrefix = 'ssb_pr_';
 	var $hideCustomMetaKey = '_ssb_hide';
    
@@ -386,7 +386,7 @@ window.___gcfg = {lang: '<?php echo $lang_g; ?>'};
 					$arrButtonsCode[] = '<div class="simplesocialbutton ssb-button-googleplus"><!-- Google Plus One--><div class="g-plusone" data-size="medium" data-href="'.$permalink.'"></div></div>';
 					break;
 				case 'fblike':
-					$arrButtonsCode[] = '<div class="simplesocialbutton ssb-button-fblike"><!-- Facebook like--><div class="fb-like" data-href="'.$permalink.'" data-send="false" data-layout="button_count" data-width="100" data-show-faces="false"></div></div>';
+					$arrButtonsCode[] = '<div class="simplesocialbutton ssb-button-fblike"><!-- Facebook like--><div id="fb-root" class="fb-like" data-href="'.$permalink.'" data-send="false" data-layout="button_count" data-width="100" data-show-faces="false"></div></div>';
 					break;
 				case 'twitter':
 					$arrButtonsCode[] = '<div class="simplesocialbutton ssb-buttom-twitter"><!-- Twitter--><a href="https://twitter.com/share" class="twitter-share-button" data-text="'.$title.'" data-url="'.$permalink.'" rel="nofollow"></a></div>';
