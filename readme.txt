@@ -3,8 +3,8 @@ Contributors: xradar
 Donate link: http://blog.rabinek.pl/
 Tags: facebook, google, twitter, plus one, like it, like, share
 Requires at least: 2.8
-Tested up to: 3.3.1
-Stable tag: 1.4.1
+Tested up to: 3.3.2
+Stable tag: 1.5.5
 
 Insert and customize social buttons: Facebook Like it, Google plus +1 and Twitter share. Share your content with friends.
 
@@ -30,10 +30,12 @@ Let your visitors share your content with friends and let them **promote your bl
 
 Simple Social Buttons is currently in the following languages:
 
+- Danish 
 - English
 - French 
-- Polish
 - German
+- Lithuanian
+- Polish
 - Spanish
 
 Feel free if you want to create a translation of this plugin. Contact me via e-mail or Twitter [@rabinek](https://twitter.com/rabinek "Paweł Rabinek on Twitter"), and I'll add your's translation to Simple Social Buttons.
@@ -88,7 +90,9 @@ Yes, you can use `<?php get_ssb(); ?>` in your template file (see installation s
 - [@RhooManu](http://twitter.com/RhooManu "RhooManu on Twitter") for french translation
 - [Usability Idealist](http://usability-idealist.de/ "Fabian Wolf - Usability Idealist") for converting code to object-oriented, adding buttons order and many fixes
 - [@Dennis Schreiber](http://twitter.com/flammbar "Dennis Schreiber on Twitter") for german translation
-- Marcos González for spanish translation 
+- [@Marcos González](http://twitter.com/qmarcos "Marcos on Twitter") for spanish translation 
+- [Vincent G](http://www.host1free.com/ "Web Hosting") for lithuanian translation
+- [Mads Phikamphon](http://www.genvejen.dk/ "Mads blog") for danish translation 
 
 == Screenshots ==
 
@@ -124,3 +128,20 @@ Yes, you can use `<?php get_ssb(); ?>` in your template file (see installation s
 * Widget manage page in wp-admin available only for Administrator
 * Added German and Spanish translation
 * Fine-tuning
+
+= 1.5 = 
+* New asynchronous JS code
+* Minor bug fixed
+
+
+= 1.5.1 =
+* Added lithuanian translation
+
+= 1.5.2 =
+* Bug fix from 1.5.1
+
+= 1.5.4 =
+* Facebook "Like it" fix (added id="fb-root" instead of class="fb-like")
+
+= 1.5.5 =
+* Added danish translation 
