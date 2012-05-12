@@ -4,7 +4,7 @@ Donate link: http://blog.rabinek.pl/
 Tags: facebook, google, twitter, plus one, like it, like, share
 Requires at least: 2.8
 Tested up to: 3.3.2
-Stable tag: 1.5.5
+Stable tag: 1.5.6
 
 Insert and customize social buttons: Facebook Like it, Google plus +1 and Twitter share. Share your content with friends.
 
@@ -37,6 +37,7 @@ Simple Social Buttons is currently in the following languages:
 - Lithuanian
 - Polish
 - Spanish
+- Thai 
 
 Feel free if you want to create a translation of this plugin. Contact me via e-mail or Twitter [@rabinek](https://twitter.com/rabinek "Paweł Rabinek on Twitter"), and I'll add your's translation to Simple Social Buttons.
 
@@ -83,6 +84,10 @@ Follow me at Twitter [@rabinek](http://twitter.com/rabinek "Paweł Rabinek na Tw
 
 Yes, you can use `<?php get_ssb(); ?>` in your template file (see installation section). Default instalation don't require that. 
 
+= Facebook button doesn't appear? =
+
+Make sure you have set WPLANG in wp-config.php file. Correct values are "en_US" for english, "el_GR" for greek, "pl_PL" for polish etc. 
+
 = Who helped to improve Simple Social Buttons? = 
 
 **Big thanks to:** 
@@ -93,6 +98,7 @@ Yes, you can use `<?php get_ssb(); ?>` in your template file (see installation s
 - [@Marcos González](http://twitter.com/qmarcos "Marcos on Twitter") for spanish translation 
 - [Vincent G](http://www.host1free.com/ "Web Hosting") for lithuanian translation
 - [Mads Phikamphon](http://www.genvejen.dk/ "Mads blog") for danish translation 
+- [Na's mad](http://nasmad.dk/ "Na's mad blog") for thai translation 
 
 == Screenshots ==
 
@@ -145,3 +151,7 @@ Yes, you can use `<?php get_ssb(); ?>` in your template file (see installation s
 
 = 1.5.5 =
 * Added danish translation 
+
+= 1.5.6 =
+* Added thai translation
+* fixed Facebook language detection 
