@@ -1,11 +1,11 @@
 <?php
  /*
     Plugin Name: Simple Social Buttons
-    Plugin URI: http://blog.rabinek.pl/simple-social-buttons-wordpress/
+    Plugin URI: http://www.rabinek.pl/simple-social-buttons-wordpress/
     Description: Insert social buttons into posts and archives: Facebook "Like it", Google Plus One "+1" and Twitter share.
     Author: Paweł Rabinek
-    Version: 1.3
-    Author URI: http://blog.rabinek.pl/
+    Version: 1.6.0
+    Author URI: http://www.rabinek.pl/
 */
 
 /*  Copyright 2011, Paweł Rabinek (xradar)  (email : pawel@rabinek.pl)
@@ -35,7 +35,7 @@
 
 class SimpleSocialButtonsPR {
 	var $pluginName = 'Simple Social Buttons';
-	var $pluginVersion = '1.4';
+	var $pluginVersion = '1.6.0';
 	var $pluginPrefix = 'ssb_pr_';
 	var $hideCustomMetaKey = '_ssb_hide';
    
@@ -44,6 +44,7 @@ class SimpleSocialButtonsPR {
 		'googleplus' => '1',
 		'fblike' => '2',
 		'twitter' => '3',
+		'pinterest' => '0',
 		'beforepost' => '1',
 		'afterpost' => '0',
 		'beforepage' => '1',
@@ -53,7 +54,10 @@ class SimpleSocialButtonsPR {
 	);
 
 	// defined buttons
-	var $arrKnownButtons = array('fblike', 'googleplus', 'twitter');
+	var $arrKnownButtons = array('fblike', 'googleplus', 'twitter', 'pinterest');
+	
+	// an array to store current settings, to avoid passing them between functions
+	var $settings = array();
 
 
 	/**
@@ -74,11 +78,11 @@ class SimpleSocialButtonsPR {
 		add_action( 'init', array(&$this, 'plugin_init') );
 
 		// get settings
-		$currentSettings = $this->get_settings();
+		$this->settings = $this->get_settings();
 
 		// social JS + CSS data
 		add_action( 'wp_footer', array(&$this, 'include_social_js') );
-		if(!isset($currentSettings['override_css'])) {
+		if(!isset($this->settings['override_css'])) {
 			add_action( 'wp_head', array(&$this, 'include_css') );
 		}
 		
@@ -97,7 +101,7 @@ class SimpleSocialButtonsPR {
 	 * Both avoids time-wasting https calls AND provides better SSL-protection if the current server is accessed using HTTPS
 	 */
 	public function get_current_http( $echo = true ) {
-		$return = 'http' . (strtolower($_SERVER['HTTPS']) == 'on' ? 's' : '') . '://';
+		$return = 'http' . (strtolower(@$_SERVER['HTTPS']) == 'on' ? 's' : '') . '://';
 
 		if($echo != false) {
 			echo $return;
@@ -111,7 +115,12 @@ class SimpleSocialButtonsPR {
 		$lang = get_bloginfo('language');
 		$lang_g = strtolower(substr($lang, 0, 2));
 		$lang_fb = str_replace('-', '_', $lang);
-
+      
+      // most common problem with incorrect WPLANG in /wp-config.php
+      if($lang_fb == "en" || empty($lang_fb)) {
+         $lang_fb = "en_US";
+      }
+      
 		/**
 		 * Disable loading of social network JS if disabled for specific post type
 		 *
@@ -124,13 +133,36 @@ class SimpleSocialButtonsPR {
 ?>
 
 <!-- Simple Social Buttons plugin -->
-<script type="text/javascript" src="<?php $this->get_current_http(); ?>apis.google.com/js/plusone.js">
+<script type="text/javascript">
 //<![CDATA[
-   {lang: '<?php echo $lang_g; ?>'}
-//]]>
+<?php if ((int)$this->settings['googleplus'] != 0):?>
+// google plus
+window.___gcfg = {lang: '<?php echo $lang_g; ?>'};
+(function() {
+   var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+   po.src = 'https://apis.google.com/js/plusone.js';
+   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+})();
+<?php endif;?>
+<?php if ((int)$this->settings['fblike'] != 0):?>
+// facebook 
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/<?php echo $lang_fb; ?>/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+<?php endif;?>
+<?php if ((int)$this->settings['twitter'] != 0):?>
+// twitter 
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+<?php endif;?>
+// ]]>
 </script>
-<script type="text/javascript" src="<?php $this->get_current_http(); ?>platform.twitter.com/widgets.js"></script>
-<script type="text/javascript" src="<?php $this->get_current_http(); ?>connect.facebook.net/<?php echo $lang_fb; ?>/all.js#xfbml=1"></script>
+<?php if ((int)$this->settings['pinterest'] != 0):?>
+<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+<?php endif;?>
 <!-- /End of Simple Social Buttons -->
 
 <?php
@@ -239,40 +271,35 @@ class SimpleSocialButtonsPR {
     */
 	function where_to_insert() {
 		$return = false;
-		
-		// get settings from database
-		$settings = $this->get_settings();
-
-		extract( $settings, EXTR_PREFIX_ALL, 'ssb' );
 
 		// display on single post?
-		if(is_single() && ($ssb_beforepost || $ssb_afterpost) && array_shift(get_post_meta(get_the_ID(), $this->hideCustomMetaKey)) != 'true') {
+		if(is_single() && ($this->settings['beforepost'] || $this->settings['afterpost']) && array_shift(get_post_meta(get_the_ID(), $this->hideCustomMetaKey)) != 'true') {
 			$return = true;
 		}
 
 		// display on single page?
-		if(is_page() && ($ssb_beforepage || $ssb_afterpage) && array_shift(get_post_meta(get_the_ID(), $this->hideCustomMetaKey)) != 'true') {
+		if(is_page() && ($this->settings['beforepage'] || $this->settings['afterpage']) && array_shift(get_post_meta(get_the_ID(), $this->hideCustomMetaKey)) != 'true') {
 			$return = true;
 		}
 
 		// display on frontpage?
-		if((is_front_page() || is_home()) && $ssb_showfront) {
+		if((is_front_page() || is_home()) && $this->settings['showfront']) {
 			$return = true;
 		}
 
       	// display on category archive?
-		if(is_category() && $ssb_showcategory) {
+		if(is_category() && $this->settings['showcategory']) {
 			$return = true;
 		}
 
       	// display on date archive?
-		if(is_date() && $ssb_showarchive)
+		if(is_date() && $this->settings['showarchive'])
 		{
 			$return = true;
 		}
 
       	// display on tag archive?
-		if(is_tag() && $ssb_showtag) {
+		if(is_tag() && $this->settings['showtag']) {
 			$return = true;
 		}
 		return $return;
@@ -281,43 +308,38 @@ class SimpleSocialButtonsPR {
 	/**
 	 * Insert the buttons to the content
 	 */
-	function insert_buttons($content) {		
+	function insert_buttons($content) {			
 		// Insert or  not?
 		if(!$this->where_to_insert() ) {
 			return $content;
 		}
 		
-		// get settings from database
-		$settings = $this->get_settings();
-		
-		extract( $settings, EXTR_PREFIX_ALL, 'ssb' );
-
 		// creating order
 		$order = array();
 		foreach ($this->arrKnownButtons as $button_name) {
-			$order[$button_name] = $settings[$button_name];
+			$order[$button_name] = $this->settings[$button_name];
 		}
 		$ssb_buttonscode = $this->generate_buttons_code($order);
 
 		if(is_single()) {
-			if($ssb_beforepost) {
+			if($this->settings['beforepost']) {
 				$content = $ssb_buttonscode.$content;
 			}
-			if($ssb_afterpost) {
+			if($this->settings['afterpost']) {
 				$content = $content.$ssb_buttonscode;
 			}
 		} else if(is_page()) {
-			if($ssb_beforepage) {
+			if($this->settings['beforepage']) {
 				$content = $ssb_buttonscode.$content;
 			}
-			if($ssb_afterpage) {
+			if($this->settings['afterpage']) {
 				$content = $content.$ssb_buttonscode;
 			}
 		} else {
-			if($ssb_beforearchive) {
+			if($this->settings['beforearchive']) {
 				$content = $ssb_buttonscode.$content;
 			}
-			if($ssb_afterarchive) {
+			if($this->settings['afterarchive']) {
 				$content = $content.$ssb_buttonscode;
 			}
 		}
@@ -357,7 +379,8 @@ class SimpleSocialButtonsPR {
 		$permalink = get_permalink();
 		$title = get_the_title();
 
-		//Sorting the buttons 
+		//Sorting the buttons
+		$arrButtons = array();
 		foreach($this->arrKnownButtons as $button_name) {
 			if(!empty($order[$button_name]) && (int)$order[$button_name] != 0) {
 				$arrButtons[$button_name] = $order[$button_name];
@@ -366,16 +389,32 @@ class SimpleSocialButtonsPR {
 		@asort($arrButtons);
 
 		$arrButtonsCode = array();
-		foreach($arrButtons as $button_name => $button_sort) {
+		foreach($arrButtons as $button_name => $button_sort) {		
 			switch($button_name) {
 				case 'googleplus':
-					$arrButtonsCode[] = '<div class="simplesocialbutton ssb-button-googleplus"><!-- Google Plus One--><g:plusone size="medium"></g:plusone></div>';
+					$arrButtonsCode[] = '<div class="simplesocialbutton ssb-button-googleplus"><!-- Google Plus One--><div class="g-plusone" data-size="medium" data-href="'.$permalink.'"></div></div>';
 					break;
 				case 'fblike':
-					$arrButtonsCode[] = '<div class="simplesocialbutton ssb-button-fblike"><!-- Facebook like--><div id="fb-root"></div><fb:like href="'.$permalink.'" send="false" layout="button_count" width="100" show_faces="false" action="like" font=""></fb:like></div>';
+					$arrButtonsCode[] = '<div class="simplesocialbutton ssb-button-fblike"><!-- Facebook like--><div id="fb-root"></div><div class="fb-like" data-href="'.$permalink.'" data-send="false" data-layout="button_count" data-width="100" data-show-faces="false"></div></div>';
 					break;
 				case 'twitter':
-					$arrButtonsCode[] = '<div class="simplesocialbutton ssb-buttom-twitter"><!-- Twitter--><a name="twitter_share" data-count="horizontal" href="http://twitter.com/share" data-text="'.$title.'" data-url="'.$permalink.'" class="twitter-share-button" rel="nofollow"></a></div>';
+					$arrButtonsCode[] = '<div class="simplesocialbutton ssb-buttom-twitter"><!-- Twitter--><a href="https://twitter.com/share" class="twitter-share-button" data-text="'.$title.'" data-url="'.$permalink.'" ' . ((!empty($this->settings['twitterusername'])) ? 'data-via="'.$this->settings['twitterusername'].'" ' : '') . 'rel="nofollow"></a></div>';
+					break;
+				case 'pinterest':
+					$thumb_id = get_post_thumbnail_id($post->ID);
+					
+					// Don't show 'Pin It' button, if post dont have thumbnail 
+					if (empty($thumb_id)) break;
+					
+					// Getting thumbnail url
+					$thumb = wp_get_attachment_image_src($thumb_id, 'thumbnail_size' );
+					$thumb_src = (isset($thumb[0])) ? $thumb[0] : null;
+					$thumb_alt = get_post_meta($thumb_id , '_wp_attachment_image_alt', true);
+					
+					// if there isn't thumbnail alt, take a post title as a description
+					$description = (!empty($thumb_alt)) ? $thumb_alt : $title ;
+					
+					$arrButtonsCode[] = '<div class="simplesocialbutton ssb-buttom-pinterest"><!-- Pinterest--><a href="http://pinterest.com/pin/create/button/?url='.urlencode($permalink).'&media='.urlencode($thumb_src).'&description='.urlencode($description).'" class="pin-it-button" count-layout="horizontal" rel="nofollow"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a></div>';
 					break;
 			}
 		}
@@ -447,7 +486,6 @@ class SimpleSocialButtonsPR_Admin extends SimpleSocialButtonsPR {
 		if ($postType != 'page' && $postType != 'post') return false;
 		
 		$currentSsbHide = get_post_custom_values($this->hideCustomMetaKey, $postId);
-		$currentSettings = $this->get_settings();
 		
 		if ($currentSsbHide[0] == 'true') {
 			$checked = true;
