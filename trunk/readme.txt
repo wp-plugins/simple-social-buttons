@@ -1,16 +1,16 @@
 === Plugin Name ===
 Contributors: xradar
-Donate link: http://blog.rabinek.pl/
-Tags: facebook, google, twitter, plus one, like it, like, share
+Donate link: http://www.rabinek.pl/
+Tags: facebook, google, twitter, pinterest, plus one, like it, like, share, pin, pin it
 Requires at least: 2.8
-Tested up to: 3.3.2
-Stable tag: 1.5.6
+Tested up to: 3.4.1
+Stable tag: 1.6.0
 
-Insert and customize social buttons: Facebook Like it, Google plus +1 and Twitter share. Share your content with friends.
+Insert and customize social buttons: Facebook Like it, Google plus +1, Twitter share, Pinterest Pin it. Share your content with friends.
 
 == Description ==
 
-Simple Social Buttons adds to your posts social network buttons, such as: **Facebook "Like it!"**, **Google plus on "+1"** and **Twitter share**. Plugin is fully customizable. You can decide where to put those buttons:
+Simple Social Buttons adds to your posts social network buttons, such as: **Facebook "Like it!"**, **Google plus on "+1"**, **Twitter share** and **Pinterest Pin it**. Plugin is fully customizable. You can decide where to put those buttons:
 
 - Buttons above the post content 
 - Buttons under the post content
@@ -26,7 +26,7 @@ That's not all. Simple Social Buttons can also add social media buttons to:
 
 Want's more? Now you can change the **order of buttons** on your post!
 
-Let your visitors share your content with friends and let them **promote your blog**. Facebook, Google Plus and Twitter are the most popular social networks nowadays. Don't miss the opportunity, and help publish your content and links to those social media networks.
+Let your visitors share your content with friends and let them **promote your blog**. Facebook, Google Plus, Pinterest and Twitter are the most popular social networks nowadays. Don't miss the opportunity, and help publish your content and links to those social media networks.
 
 Simple Social Buttons is currently in the following languages:
 
@@ -41,7 +41,7 @@ Simple Social Buttons is currently in the following languages:
 
 Feel free if you want to create a translation of this plugin. Contact me via e-mail or Twitter [@rabinek](https://twitter.com/rabinek "Paweł Rabinek on Twitter"), and I'll add your's translation to Simple Social Buttons.
 
-For more information about Wordpress and SEO, visit my [SEO Blog](http://blog.rabinek.pl "Paweł Rabinek - Blog SEO") (in polish).
+For more information about Wordpress and SEO, visit my [SEO Blog](http://www.rabinek.pl "Paweł Rabinek - Blog SEO") (in polish).
 Also check my new SEO tool [SEO Audit](http://www.seoptimer.com "Free SEO Audit tool").
 
 Big thanks for support in development of this plugin for:
@@ -74,7 +74,7 @@ Yes. I've some plans about developing Simple Social Buttons. There will be more 
 
 = Why use this plugin? =
 
-This plugin automatically adds the Facebook Like button, Google plus one +1 and Twitter share button for each post on your blog. This is the simples and effective way to promote your blog in social media networks.
+This plugin automatically adds the Facebook Like button, Google plus one +1, Twitter share button and Pinterest Pin for each post on your blog. This is the simples and effective way to promote your blog in social media networks.
 
 = How about support? =
 
@@ -155,3 +155,9 @@ Make sure you have set WPLANG in wp-config.php file. Correct values are "en_US" 
 = 1.5.6 =
 * Added thai translation
 * fixed Facebook language detection 
+
+= 1.6.0 =
+* Added Twitter via @username option
+* Added Pinterest button
+* Some bug fixes
+
