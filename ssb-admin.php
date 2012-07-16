@@ -10,7 +10,7 @@
 
 <h2>Simple Social Buttons - <?php _e('Settings'); ?>:</h2>
 
-<p><?php _e('<strong>Simple Social Buttons</strong> by <strong>Paweł Rabinek</strong>. This plugin adds a social media buttons, such as: <strong>Google +1</strong>, <strong>Facebook Like it</strong> and <strong>Twitter share</strong>. The most flexible social buttons plugin ever.', 'simplesocialbuttons'); ?></p>
+<p><?php _e('<strong>Simple Social Buttons</strong> by <strong>Paweł Rabinek</strong>. This plugin adds a social media buttons, such as: <strong>Google +1</strong>, <strong>Facebook Like it</strong>, <strong>Twitter share</strong> and <strong>Pinterest</strong>. The most flexible social buttons plugin ever.', 'simplesocialbuttons'); ?></p>
 
 <?php
 
@@ -25,6 +25,7 @@ if(strtolower($_POST['hiddenconfirm']) == 'y') {
 		'googleplus' => $_POST['ssb_googleplus'],
 		'fblike' => $_POST['ssb_fblike'],
 		'twitter' => $_POST['ssb_twitter'],
+		'pinterest' => $_POST['ssb_pinterest'],
 
 		'beforepost' => $_POST['ssb_beforepost'],
 		'afterpost' => $_POST['ssb_afterpost'],
@@ -39,6 +40,8 @@ if(strtolower($_POST['hiddenconfirm']) == 'y') {
 		'showtag' => $_POST['ssb_showtag'],
 
 		'override_css' => $_POST['ssb_override_css'],
+	
+		'twitterusername' => str_replace(array("@", " "), "", $_POST['ssb_twitterusername']),
 	);
 
 	$this->update_settings( $updateSettings );
@@ -89,7 +92,7 @@ extract( $settings, EXTR_PREFIX_ALL, 'ssb' );
 				 	 ?>selected="selected"<?php
 				} ?>><?php _e('inactive', 'simplesocialbuttons'); ?></option>
 
-			<?php for($pos = 1; $pos < 4; $pos++) { ?>
+			<?php for($pos = 1; $pos < 5; $pos++) { ?>
 				<option value="<?php echo $pos; ?>"<?php if($ssb_fblike == $pos) {
 					 ?>selected="selected"<?php
 				} ?>> # <?php echo $pos; ?> </option>
@@ -104,7 +107,7 @@ extract( $settings, EXTR_PREFIX_ALL, 'ssb' );
 				 	 ?>selected="selected"<?php
 				} ?>><?php _e('inactive', 'simplesocialbuttons'); ?></option>
 
-			<?php for($pos = 1; $pos < 4; $pos++) { ?>
+			<?php for($pos = 1; $pos < 5; $pos++) { ?>
 				<option value="<?php echo $pos; ?>"<?php if($ssb_twitter == $pos) {
 					 ?>selected="selected"<?php
 				} ?>> # <?php echo $pos; ?> </option>
@@ -112,6 +115,21 @@ extract( $settings, EXTR_PREFIX_ALL, 'ssb' );
 			</select> &nbsp;
 			<label for="ssb_twitter"><?php _e('Twitter share', 'simplesocialbuttons'); ?></label></p>
 			<!-- /twitter -->
+			
+			<!--  pinterest -->
+			<p><select name="ssb_pinterest" id="ssb_pinterest">
+				<option value=""<?php if(empty($ssb_pinterest) != false) {
+				 	 ?>selected="selected"<?php
+				} ?>><?php _e('inactive', 'simplesocialbuttons'); ?></option>
+
+			<?php for($pos = 1; $pos < 5; $pos++) { ?>
+				<option value="<?php echo $pos; ?>"<?php if($ssb_pinterest == $pos) {
+					 ?>selected="selected"<?php
+				} ?>> # <?php echo $pos; ?> </option>
+			<?php } ?>
+			</select> &nbsp;
+			<label for="ssb_pinterest"><?php _e('Pinterest - Pin It', 'simplesocialbuttons'); ?></label> <?php echo _e('(Will be visible only on post with thumbnail)');?></p>
+			<!--  /pinterest -->
 
 			<p><label for="ssb_override_css"><input type="checkbox" name="ssb_override_css" id="ssb_override_css" value="1" <?php if($ssb_override_css) { echo 'checked="checked"'; } ?>/> <?php _e('Disable plugin CSS (only advanced users)'); ?></label></p>
          </div>
@@ -149,6 +167,13 @@ extract( $settings, EXTR_PREFIX_ALL, 'ssb' );
             <p><input type="checkbox" name="ssb_afterarchive" id="ssb_afterarchive" value="1" <?php if(!empty($ssb_afterarchive)) { ?>checked="checked"<?php } ?> /> <label for="ssb_afterarchive"><?php _e('After the content', 'simplesocialbuttons'); ?></label></p>
          </div>
       </div>
+      
+      <div class="postbox">
+         <h3><?php _e('Additional features'); ?></h3>
+         <div class="inside">
+            <p><label for="ssb_twitterusername"><?php _e('Twitter @username', 'simplesocialbuttons'); ?>: <input type="text" name="ssb_twitterusername" id="ssb_twitterusername" value="<?php echo (isset($ssb_twitterusername)) ? $ssb_twitterusername : "";?>" /></label></p>
+         </div>
+      </div>
 
       <div class="submit">
          <input type="hidden" name="hiddenconfirm" value="Y" />
@@ -166,7 +191,7 @@ extract( $settings, EXTR_PREFIX_ALL, 'ssb' );
          <div class="inside">
             <p><?php _e('Talk to <a href="http://twitter.com/rabinek" target="_blank">@rabinek</a> on twitter for bugs or feature requests.', 'simplesocialbuttons'); ?></p>
             <p><strong><?php _e('Enjoy the plugin?', 'simplesocialbuttons'); ?></strong><br />
-            <?php _e('<a href="http://twitter.com/?status=I\'m using @rabinek\'s WordPress Simple Social Buttons plugin - check it out! http://blog.rabinek.pl/" target="_blank">Tweet about it</a> and consider donating.', 'simplesocialbuttons'); ?></p>
+            <?php _e('<a href="http://twitter.com/?status=I\'m using @rabinek WordPress Simple Social Buttons plugin - check it out! http://www.rabinek.pl/" target="_blank">Tweet about it</a> and consider donating.', 'simplesocialbuttons'); ?></p>
             <p><?php _e('<strong>Donate:</strong> A lot of hard work goes into building plugins - support your open source developers. Thank you!', 'simplesocialbuttons'); ?><br />
             <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
                <input type="hidden" name="cmd" value="_s-xclick">
@@ -183,22 +208,12 @@ extract( $settings, EXTR_PREFIX_ALL, 'ssb' );
          <div class="inside">
          <p><?php _e('Hi! My name is Paweł Rabinek (aka xradar). I\'m interesed in SEO and social media, PHP and Wordpress developement.', 'simplesocialbuttons'); ?></p>
          <ul>
-            <li><a href="http://blog.rabinek.pl/" target="_blank"><?php _e('My blog about SEO', 'simplesocialbuttons'); ?></a> <?php _e('[Polish]', 'simplesocialbuttons'); ?></li>
+            <li><a href="http://www.seoptimer.com/" target="_blank"><?php _e('Free SEO Audit', 'simplesocialbuttons'); ?></a></li>
+            <li><a href="http://www.rabinek.pl/" target="_blank"><?php _e('My blog about SEO', 'simplesocialbuttons'); ?></a> <?php _e('[Polish]', 'simplesocialbuttons'); ?></li>
             <li><?php _e('Follow me on Twitter', 'simplesocialbuttons'); ?> <a href="http://www.twitter.com/rabinek" target="_blank">@rabinek</a></li>
             <li><a href="http://www.facebook.com/rabinek" target="_blank"><?php _e('Paweł Rabinek on Facebook', 'simplesocialbuttons'); ?></a></li>
             <li><a href="http://plus.google.com/114311287272342088386/" target="_blank"><?php _e('Paweł Rabinek on Google Plus', 'simplesocialbuttons'); ?></a></li>
             <li><a href="http://pl.linkedin.com/in/rabinek" target="_blank"><?php _e('LinkedIn profile', 'simplesocialbuttons'); ?></a></li>
-         </ul>
-         </div>
-      </div>
-
-      <div class="postbox">
-         <h3><?php _e('Usefull links:', 'simplesocialbuttons'); ?></h3>
-         <div class="inside">
-         <ul>
-            <li><a href="http://www.site5.com/in.php?id=53542" target="_blank"><?php _e('Unlimited web hosting', 'simplesocialbuttons'); ?></a></li>
-            <li><a href="http://www.webceo.com/cgi-bin/go/clickthru.cgi?id=xradar" target="_blank"><?php _e('Best SEO software', 'simplesocialbuttons'); ?></a></li>
-            <li><a href="http://themeforest.net?ref=xradar" target="_blank"><?php _e('Wordpress templates', 'simplesocialbuttons'); ?></a></li>
          </ul>
          </div>
       </div>
