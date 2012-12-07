@@ -4,7 +4,7 @@ Donate link: http://www.rabinek.pl/
 Tags: facebook, google, twitter, pinterest, plus one, like it, like, share, pin, pin it
 Requires at least: 2.8
 Tested up to: 3.4.1
-Stable tag: 1.6.1
+Stable tag: 1.6.2
 
 Insert and customize social buttons: Facebook Like it, Google plus +1, Twitter share, Pinterest Pin it. Share your content with friends.
 
@@ -100,7 +100,7 @@ Make sure you have set WPLANG in wp-config.php file. Correct values are "en_US" 
 - [Vincent G](http://www.host1free.com/ "Web Hosting") for lithuanian translation
 - [Mads Phikamphon](http://www.genvejen.dk/ "Mads blog") for danish translation 
 - [Na's mad](http://nasmad.dk/ "Na's mad blog") for thai translation 
-- [WebHostingGeeks.com](http://webhostinggeeks.com/blog/ "Webhosting Geeks) for slovak translation 
+- [WebHostingGeeks.com](http://webhostinggeeks.com/blog/ "Webhosting Geeks") for slovak translation 
 
 == Screenshots ==
 
