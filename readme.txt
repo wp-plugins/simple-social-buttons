@@ -4,7 +4,7 @@ Donate link: http://www.rabinek.pl/
 Tags: facebook, google, twitter, pinterest, plus one, like it, like, share, pin, pin it
 Requires at least: 2.8
 Tested up to: 3.4.1
-Stable tag: 1.6.0
+Stable tag: 1.6.1
 
 Insert and customize social buttons: Facebook Like it, Google plus +1, Twitter share, Pinterest Pin it. Share your content with friends.
 
@@ -38,16 +38,17 @@ Simple Social Buttons is currently in the following languages:
 - Polish
 - Spanish
 - Thai 
+- Slovak
 
 Feel free if you want to create a translation of this plugin. Contact me via e-mail or Twitter [@rabinek](https://twitter.com/rabinek "Paweł Rabinek on Twitter"), and I'll add your's translation to Simple Social Buttons.
 
-For more information about Wordpress and SEO, visit my [SEO Blog](http://www.rabinek.pl "Paweł Rabinek - Blog SEO") (in polish).
-Also check my new SEO tool [SEO Audit](http://www.seoptimer.com "Free SEO Audit tool").
+For more information about Wordpress and SEO, visit my [SEO Blog](http://www.rabinek.pl/ "Paweł Rabinek - Blog SEO") (in polish).
+Also check my new SEO tool [Seoptimer - Website Review](http://www.seoptimer.com/ "Free SEO Audit tool").
 
 Big thanks for support in development of this plugin for:
 
-- Karol from [Liga BBVA](http://www.ligabbva.pl "Liga hiszpańska BBVA") for PHP developement
-- Talem Technologies - [Pozycjonowanie Bydgoszcz](http://www.talem.eu "SEO Pozycjonowanie Bydgoszcz") for time and resources
+- Karol from [Liga BBVA](http://www.ligabbva.pl/ "Liga hiszpańska BBVA") for PHP developement
+- Talem Technologies - [Pozycjonowanie Bydgoszcz](http://www.talem.eu/ "SEO Pozycjonowanie Bydgoszcz") for time and resources
 - See more thanks in FAQ section
 
 == Installation ==
@@ -99,6 +100,7 @@ Make sure you have set WPLANG in wp-config.php file. Correct values are "en_US" 
 - [Vincent G](http://www.host1free.com/ "Web Hosting") for lithuanian translation
 - [Mads Phikamphon](http://www.genvejen.dk/ "Mads blog") for danish translation 
 - [Na's mad](http://nasmad.dk/ "Na's mad blog") for thai translation 
+- [WebHostingGeeks.com](http://webhostinggeeks.com/blog/ "Webhosting Geeks) for slovak translation 
 
 == Screenshots ==
 
