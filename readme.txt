@@ -163,3 +163,5 @@ Make sure you have set WPLANG in wp-config.php file. Correct values are "en_US" 
 * Added Pinterest button
 * Some bug fixes
 
+= 1.6.2 =
+* Added slovak translation
