@@ -3,8 +3,8 @@ Contributors: xradar
 Donate link: http://www.rabinek.pl/
 Tags: facebook, google, twitter, pinterest, plus one, like it, like, share, pin, pin it
 Requires at least: 2.8
-Tested up to: 3.4.1
-Stable tag: 1.6.2
+Tested up to: 3.6.1
+Stable tag: 1.6.3
 
 Insert and customize social buttons: Facebook Like it, Google plus +1, Twitter share, Pinterest Pin it. Share your content with friends.
 
@@ -42,14 +42,8 @@ Simple Social Buttons is currently in the following languages:
 
 Feel free if you want to create a translation of this plugin. Contact me via e-mail or Twitter [@rabinek](https://twitter.com/rabinek "Paweł Rabinek on Twitter"), and I'll add your's translation to Simple Social Buttons.
 
-For more information about Wordpress and SEO, visit my [SEO Blog](http://www.rabinek.pl/ "Paweł Rabinek - Blog SEO") (in polish).
-Also check my new SEO tool [Seoptimer - Website Review](http://www.seoptimer.com/ "Free SEO Audit tool").
-
-Big thanks for support in development of this plugin for:
-
-- Karol from [Liga BBVA](http://www.ligabbva.pl/ "Liga hiszpańska BBVA") for PHP developement
-- Talem Technologies - [Pozycjonowanie Bydgoszcz](http://www.talem.eu/ "SEO Pozycjonowanie Bydgoszcz") for time and resources
-- See more thanks in FAQ section
+For more information about Wordpress and SEO, visit my blog [Rabinek.pl](http://www.rabinek.pl/ "Paweł Rabinek - Blog SEO") (in polish).
+Also check my free SEO audit tool [Seoptimer.com - Website Review](http://www.seoptimer.com/ "Free SEO Audit tool").
 
 == Installation ==
 
@@ -79,7 +73,7 @@ This plugin automatically adds the Facebook Like button, Google plus one +1, Twi
 
 = How about support? =
 
-Follow me at Twitter [@rabinek](http://twitter.com/rabinek "Paweł Rabinek na Twitter") or send me a mention. I'll reply as soon as I get it. You can also visit my [SEO Blog](http://blog.rabinek.pl "Paweł Rabinek - Blog SEO") (in polish).
+Follow me at Twitter [@rabinek](http://twitter.com/rabinek "Paweł Rabinek na Twitter") or send me a mention. I'll reply as soon as I get it. You can also visit my blog [Rabinek.pl](http://www.rabinek.pl/ "Paweł Rabinek - Blog SEO") (in polish).
 
 = Is there a template tag for custom install? =
 
@@ -93,6 +87,7 @@ Make sure you have set WPLANG in wp-config.php file. Correct values are "en_US" 
 
 **Big thanks to:** 
 
+- Karol from [LigaBBVA.pl](http://www.ligabbva.pl/ "Liga hiszpańska BBVA") for PHP developement
 - [@RhooManu](http://twitter.com/RhooManu "RhooManu on Twitter") for french translation
 - [Usability Idealist](http://usability-idealist.de/ "Fabian Wolf - Usability Idealist") for converting code to object-oriented, adding buttons order and many fixes
 - [@Dennis Schreiber](http://twitter.com/flammbar "Dennis Schreiber on Twitter") for german translation
@@ -165,3 +160,7 @@ Make sure you have set WPLANG in wp-config.php file. Correct values are "en_US" 
 
 = 1.6.2 =
 * Added slovak translation
+
+= 1.6.3 = 
+* Fixed CSS class names ("buttom" to "button")
+* Fixed facebook Like box cut off
