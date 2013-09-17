@@ -14,7 +14,7 @@
 
 <?php
 
-if(strtolower($_POST['hiddenconfirm']) == 'y') {
+if(strtolower(@$_POST['hiddenconfirm']) == 'y') {
 
 	/**
 	 * Compile settings array
