@@ -4,7 +4,7 @@ Donate link: http://www.rabinek.pl/
 Tags: facebook, google, twitter, pinterest, plus one, like it, like, share, pin, pin it
 Requires at least: 2.8
 Tested up to: 3.6.1
-Stable tag: 1.6.4
+Stable tag: 1.6.5
 
 Insert and customize social buttons: Facebook Like it, Google plus +1, Twitter share, Pinterest Pin it. Share your content with friends.
 
@@ -31,18 +31,20 @@ Let your visitors share your content with friends and let them **promote your bl
 Simple Social Buttons is currently in the following languages:
 
 - Danish 
+- Dutch
 - English
 - French 
 - German
 - Lithuanian
 - Polish
+- Serbo-Croatian
+- Slovak
 - Spanish
 - Thai 
-- Slovak
 
 Feel free if you want to create a translation of this plugin. Contact me via e-mail or Twitter [@rabinek](https://twitter.com/rabinek "Paweł Rabinek on Twitter"), and I'll add your's translation to Simple Social Buttons.
 
-For more information about Wordpress and SEO, visit my blog [Rabinek.pl](http://www.rabinek.pl/ "Paweł Rabinek - Blog SEO") (in polish).
+For more information about Wordpress and SEO, visit my blog [Rabinek.pl](http://www.rabinek.pl/ "Paweł Rabinek - Blog SEO") (in polish) and my company [RedSEO](http://www.redseo.pl/ "RedSEO") (in polish).
 Also check my free SEO audit tool [Seoptimer.com - Website Review](http://www.seoptimer.com/ "Free SEO Audit tool").
 
 == Installation ==
@@ -96,6 +98,8 @@ Make sure you have set WPLANG in wp-config.php file. Correct values are "en_US" 
 - [Mads Phikamphon](http://www.genvejen.dk/ "Mads blog") for danish translation 
 - [Na's mad](http://nasmad.dk/ "Na's mad blog") for thai translation 
 - [WebHostingGeeks.com](http://webhostinggeeks.com/blog/ "Webhosting Geeks") for slovak translation 
+- [WPdiscounts](http://wpdiscounts.com/ "WPdiscounts") for dutch translation
+- [Web Hosting Hub](http://www.webhostinghub.com/ "Webhostinghub") for serbo-croatian translation
 
 == Screenshots ==
 
@@ -167,3 +171,7 @@ Make sure you have set WPLANG in wp-config.php file. Correct values are "en_US" 
 
 = 1.6.4 = 
 * Used "Roles and Capabilities" in admin access
+
+= 1.6.5 =
+* Added dutch translation
+* Added serbo-croatian translation
