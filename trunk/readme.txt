@@ -4,7 +4,7 @@ Donate link: http://www.rabinek.pl/
 Tags: facebook, google, twitter, pinterest, plus one, like it, like, share, pin, pin it
 Requires at least: 2.8
 Tested up to: 3.8
-Stable tag: 1.6.6
+Stable tag: 1.7.0
 
 Insert and customize social buttons: Facebook Like it, Google plus +1, Twitter share, Pinterest Pin it. Share your content with friends.
 
@@ -178,3 +178,7 @@ Make sure you have set WPLANG in wp-config.php file. Correct values are "en_US" 
 
 = 1.6.6 =
 * Update for Wordpress 3.8
+
+= 1.7.0 =
+* Fixed margin-right for buttons
+* Pinterest button code update
