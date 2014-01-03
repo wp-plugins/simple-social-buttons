@@ -4,7 +4,7 @@ Donate link: http://www.rabinek.pl/
 Tags: facebook, google, twitter, pinterest, plus one, like it, like, share, pin, pin it
 Requires at least: 2.8
 Tested up to: 3.8
-Stable tag: 1.7.0
+Stable tag: 1.7.1
 
 Insert and customize social buttons: Facebook Like it, Google plus +1, Twitter share, Pinterest Pin it. Share your content with friends.
 
@@ -103,10 +103,9 @@ Make sure you have set WPLANG in wp-config.php file. Correct values are "en_US" 
 
 == Screenshots ==
 
-1. Simple Social Buttons - plugin options
-2. Plugin example
-3. Plugin on archive
-4. Widget in post edition
+1. All buttons before the content
+2. Widget in post edition
+3. Plugin settings page
 
 
 == Changelog ==
@@ -182,3 +181,6 @@ Make sure you have set WPLANG in wp-config.php file. Correct values are "en_US" 
 = 1.7.0 =
 * Fixed margin-right for buttons
 * Pinterest button code update
+
+= 1.7.1 =
+* New sreenshots of plugin
