@@ -1,10 +1,10 @@
 === Plugin Name ===
 Contributors: xradar
-Donate link: http://www.rabinek.pl/
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=UD823RE2F623Q&lc=US&item_name=WP%20Simple%20Social%20Buttons&item_number=Support%20Open%20Source&no_note=1&no_shipping=1&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted
 Tags: facebook, google, twitter, pinterest, plus one, like it, like, share, pin, pin it
 Requires at least: 2.8
 Tested up to: 3.8
-Stable tag: 1.7.2
+Stable tag: 1.7.3
 
 Insert and customize social buttons: Facebook Like it, Google plus +1, Twitter share, Pinterest Pin it. Share your content with friends.
 
@@ -184,3 +184,7 @@ Make sure you have set WPLANG in wp-config.php file. Correct values are "en_US" 
 
 = 1.7.2 =
 * New sreenshots of plugin
+
+= 1.7.3 =
+* New description and donation link
+* New polish and english translation
