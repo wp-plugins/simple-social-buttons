@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=UD823
 Tags: facebook, google, twitter, pinterest, plus one, like it, like, share, pin, pin it
 Requires at least: 2.8
 Tested up to: 3.8
-Stable tag: 1.7.4
+Stable tag: 1.7.5
 
 Insert and customize social buttons: Facebook Like it, Google plus +1, Twitter share, Pinterest Pin it. Share your content with friends.
 
@@ -41,6 +41,7 @@ Simple Social Buttons is currently in the following languages:
 - Slovak
 - Spanish
 - Thai 
+- Ukrainian 
 
 For more information about Wordpress and SEO, visit my blog [Rabinek.pl](http://www.rabinek.pl/ "Paweł Rabinek - Blog SEO") (in polish) and my company [RedSEO](http://www.redseo.pl/ "RedSEO") (in polish).
 Also check my free SEO audit tool [Seoptimer.com - Website Review](http://www.seoptimer.com/ "Free SEO Audit tool").
@@ -98,6 +99,7 @@ Make sure you have set WPLANG in wp-config.php file. Correct values are "en_US" 
 - [WebHostingGeeks.com](http://webhostinggeeks.com/blog/ "Webhosting Geeks") for slovak translation 
 - [WPdiscounts](http://wpdiscounts.com/ "WPdiscounts") for dutch translation
 - [Web Hosting Hub](http://www.webhostinghub.com/ "Webhostinghub") for serbo-croatian translation
+- [Michael Yunat](http://getvoip.com/blog "http://getvoip.com") for ukrainian translation
 
 == Screenshots ==
 
@@ -189,3 +191,6 @@ Make sure you have set WPLANG in wp-config.php file. Correct values are "en_US" 
 
 = 1.7.4 =
 * Fixed position of Facebook "Like" button
+
+= 1.7.5 =
+* Added ukrainian translation 
